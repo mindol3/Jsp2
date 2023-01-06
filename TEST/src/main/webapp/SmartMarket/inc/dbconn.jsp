@@ -8,7 +8,7 @@
 		
 		
 		try {
-		String url = "jdbc:mariadb://localhost:3308/WebMarketDB";
+		String url = "jdbc:mariadb://localhost:5000/WebMarketDB";
 		String user = "root";
 		String password = "1234";
 		Class.forName("org.mariadb.jdbc.Driver");
