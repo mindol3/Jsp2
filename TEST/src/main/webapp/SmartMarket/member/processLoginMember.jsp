@@ -1,43 +1,27 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-
-	String id = request.getParameter("id");
-	String password = request.getParameter("password");
+<%@page import="market.ver01.dao.CartDAO" %>
+<%@ include file="../inc/dbconn.jsp"%>
+    
+<% 
+   request.setCharacterEncoding("UTF-8");
+   String id =request.getParameter("id");
+   String password=request.getParameter("password");
+   String sql = "SELECT * FROM member WHERE id = ? AND password = ?";
+   pstmt = conn.prepareStatement(sql);
+   pstmt.setString(1, id);
+   pstmt.setString(2, password);
+   rs = pstmt.executeQuery();
+   if (rs.next()) {
+   
+      session.setAttribute("sessionId", id);
+      session.setAttribute("sessionName", rs.getString("name"));
+      CartDAO cartDAO = new CartDAO();
+      cartDAO.updateCartBylogin(session);
+      response.sendRedirect ("resultMember.jsp?msg=2");
+   }
+   else {
+      response. sendRedirect("loginMember.jsp?error=1");
+   }
 %>
-
-<sql:setDataSource var="dataSource" 
-	url = "jdbc:mariadb://localhost:5000/WebMarketDB"
-	driver="org.mariadb.jdbc.Driver" user="root" password="1234"/>
-	
-<sql:query dataSource ="${dataSource}" var = "resultSet">
-	SELECT * FROM MEMBER WHERE ID=? and password=?
-	<sql:param value="<%=id%>" />
-	<sql:param value="<%=password %>" />
-
-</sql:query>
-
-<c:forEach var="row" items="$(resultSet.rows)">
-	<%
-		session.setAttribute("sessionId", id);
-	%>
-	<c:redirect url="resultMember.jsp?msg=2" />
-</c:forEach>
-	<c:redirect url="LogintMember.jsp?error=1" />
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>

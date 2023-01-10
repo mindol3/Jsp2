@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="market.ver01.dto.Product" %>
-<%@ page import="market.ver01.dao.ProductRepository" %>
+<%@ page import="market.ver02.dto.Book" %>
+<%@ page import="market.ver02.dao.BookRepository" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,7 @@
 
 </head>
 <body>
-	<jsp:include page="../inc/menu.jsp"/>
+	<jsp:include page="menu.jsp"/>
 		<div class="jumbotron">
 			<div class="container">
 				<h1 class="display-3">장바구니</h1>
@@ -41,23 +41,23 @@
 					</tr>
 					<%
 						int sum = 0;
-					ArrayList<Product> cartList = (ArrayList<Product>) session.getAttribute("cartlist");
+					ArrayList<Book> cartList = (ArrayList<Book>) session.getAttribute("cartlist");
 					if (cartList == null) {
-						cartList = new ArrayList<Product>();
+						cartList = new ArrayList<Book>();
 						session.setAttribute("cartlist", cartList);
 					}
 					
 					for (int i = 0; i < cartList.size(); i++) { // 상품 리스트 하나씩 출력하기
-						Product product = cartList.get(i);
-						int total = product.getUnitPrice() * product.getQuantity();
+						Book book = cartList.get(i);
+						int total = book.getUnitPrice() * book.getQuantity();
 						sum = sum + total;
 					%>
 					<tr>
-						<td><%=product.getProductId()%> - <%=product.getPname()%></td>
-						<td><%=product.getUnitPrice()%></td>
-						<td><%=product.getQuantity()%></td>
+						<td><%=book.getBooktId()%> - <%=book.getName()%></td>
+						<td><%=book.getUnitPrice()%></td>
+						<td><%=book.getQuantity()%></td>
 						<td><%=total%></td>
-						<td> <span class="badge badge-danger btn" onclick="removeCartByID('<%=product.getProductId()%>')">삭제</span> </td>
+						<td> <span class="badge badge-danger btn" onclick="removeCartByID('<%=book.getBooktId()%>')">삭제</span> </td>
 					</tr>
 					<%
 					}
@@ -70,7 +70,7 @@
 						<th></th>
 					</tr>
 				</table>
-				<a href="./products.jsp" class="btn btn-secondary"> &laquo; 쇼핑 계속하기</a>
+				<a href="./books.jsp" class="btn btn-secondary"> &laquo; 쇼핑 계속하기</a>
 			</div>
 			<hr>
 		<form name="frmCart" method="post">
@@ -79,29 +79,21 @@
 		<script type="text/javascript">
 			const frm = document.frmCart;
  			let removeCartByID = function(ID) {
- 				if(confirm('해당 상품을 삭제하시겠습니까?')) {
- 					// frm.id.value = ID;
- 					// frm.action = "removeCart.jsp";
- 					// frm.submit();
- 					location.href = 'removeCart.jsp?id=' + ID;
- 				}
- 			}
- 			let removeCartSel = function() {
- 				if(confirm('선택한 상품을 삭제하시겠습니까?')) {
- 					frm.action = "removeCartSel.jsp";
+ 				if(confirm('삭제하시겠습니까?')) {
+ 					frm.id.value = ID;
+ 					frm.action = "removeCart.jsp";
  					frm.submit();
  				}
  			}
  			let deleteCart = function() {
- 				if(confirm('전체 삭제하시겠습니까?')) {
- 					// frm.action = "deleteCart.jsp";
- 					// frm.submit();
- 					location.href = 'deleteCart.jsp'
+ 				if(confirm('삭제하시겠습니까?')) {
+ 					frm.action = "deleteCart.jsp";
+ 					frm.submit();
  				}
  			}
 		</script>
 		<hr>
 		</div>
-		<jsp:include page="../inc/footer.jsp"/>
+		<jsp:include page="footer.jsp"/>
 </body>
 </html>

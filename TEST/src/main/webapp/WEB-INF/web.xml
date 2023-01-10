@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>TEST</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+         <!--  접근을 제한할 요청 경로를 설정하도록 <url-pattern> 요소를 작성 -->
+  <!--  
+  <security-role>
+  	<role-name>guest</role-name>
+  </security-role>
+  <security-constraint>
+      <display-name>WebMarket Security</display-name>
+      <web-resource-collection>
+         <web-resource-name>WebMarket</web-resource-name>
+         <description></description>
+         <url-pattern>/SmartMarket/Ex1.jsp</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+         <description>권한 관리자명</description>
+         <role-name>guest</role-name>
+      </auth-constraint>
+   </security-constraint>-->
+  <!-- FORM 인증 처리 기법을 설정하도록 <auth-method> 요소를 작성 
+  <login-config>
+  	<auth-method>FORM</auth-method>
+  	   <form-login-config>
+   		<form-login-page>/SmartMarket/login.jsp</form-login-page>
+   		<form-error-page>/SmartMarket/login_failed.jsp</form-error-page>
+   </form-login-config>
+  </login-config>-->
+  
+  <!-- 오류가 발생했을 때 오류 상태와 오류 페이지를 출력하도록 작성 -->
+<!--<error-page>
+<error-code>500</error-code>
+<location>/exception/errorCode_error.jsp</location>
+</error-page>-->
+<!--  <error-page>
+<exception-type>java.lang.Exception</exception-type>
+<location>/exception/exceptionType_error.jsp</location>
+</error-page>-->
+<error-page>
+<error-code>404</error-code>
+<location>/market/exceptionNoPage.jsp</location>
+</error-page>
+
+  <servlet>
+  	<servlet-name>myController</servlet-name>
+  	<servlet-class>controller.ControllerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>myController</servlet-name>
+  		<url-pattern>/mvc/ControllerServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
