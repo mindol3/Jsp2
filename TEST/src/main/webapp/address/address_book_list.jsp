@@ -40,7 +40,7 @@
 				</select>
 				<input type="search" name="keyword" placeholder="검색어" value="<%=keyword%>">
 				<input type="submit" value="검색">
-				<input type="button" value="취소" onclick="document.loaction.href='./'">
+				<input type="button" value="취소" onclick="document.location.href='index.jsp'">
 			</form>
 		</div>
 		<form>

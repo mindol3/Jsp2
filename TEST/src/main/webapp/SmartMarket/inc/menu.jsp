@@ -25,9 +25,9 @@
 				
 				<li class="nav-item"><a class="nav-link" href="../shop_db/products.jsp">상품목록</a></li>
 				<li class="nav-item"><a class="nav-link" href="../shop_db/cart.jsp">장바구니</a></li>
-				<li class="nav-item"><a class="nav-link" href="../admin/addProduct.jsp">상품 등록</a></li>
+				<!-- <li class="nav-item"><a class="nav-link" href="../admin/addProduct.jsp">상품 등록</a></li>
 				<li class="nav-item"><a class="nav-link" href="../admin/editProduct.jsp?edit=update">상품 수정</a></li>
-				<li class="nav-item"><a class="nav-link" href="../admin/editProduct.jsp?edit=delete">상품 삭제</a></li>
+				<li class="nav-item"><a class="nav-link" href="../admin/editProduct.jsp?edit=delete">상품 삭제</a></li> -->
 				<li class="nav-item"><a class="nav-link" href="../board/BoardListAction.do?pageNum=1">게시판</a></li>
 				
 				
