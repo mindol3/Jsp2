@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import mvc.model.BoardDTO;
 import mvc.model.BoardDAO;
 
+//@WebServlet("*.do")
 public class BoardController extends HttpServlet{
 	static final int LISTCOUNT = 5; // 페이지당 게시물 수
 	
@@ -50,11 +52,31 @@ public class BoardController extends HttpServlet{
 			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardListAction.do");
 			rd.forward(req, resp);
 		}
-		/*else if (command.contains("/BoardViewAction.do")) { // 새로운 글 등록하기
+		else if (command.contains("/BoardViewAction.do")) { // 선택된 글 상세 페이지 가져오기
 			requestBoardWrite(req);
-			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardView.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardView.do");
 			rd.forward(req, resp);
-		}*/
+		}
+		else if (command.contains("/BoardView.do")) { // 글 상세 페이지 출력하기
+			requestBoardView(req);
+			RequestDispatcher rd = req.getRequestDispatcher("../board/view.jsp");
+			rd.forward(req, resp);
+		}
+		else if (command.contains("/BoardUpdateAction.do")) { // 글 수정하기
+			requestBoardUpdate(req);
+			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardListAction.do");
+			rd.forward(req, resp);
+		}
+		else if (command.contains("/BoardDeleteAction.do")) { // 선택된 글 삭제하기
+			requestBoardDelete(req);
+			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardListAction.do");
+			rd.forward(req, resp);
+		}
+		else if (command.contains("/BoardUpdateForm.do")) { // 글 수정 페이지 출력하기
+			requestLoginName(req);
+			RequestDispatcher rd = req.getRequestDispatcher("../board/updateForm.jsp");
+			rd.forward(req, resp);
+		}
 	}
 
 
@@ -130,6 +152,49 @@ public class BoardController extends HttpServlet{
 		board.setIp(req.getRemoteAddr());
 		
 		dao.insertBoard(board);
+		
+	}
+	
+	// 글 상세 페이지 출력하기
+	private void requestBoardView(HttpServletRequest req) {
+		
+		BoardDAO dao = BoardDAO.getInstance();
+		int num = Integer.parseInt(req.getParameter("num"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		BoardDTO board = new BoardDTO();
+		board = dao.getBoardByNum(num, pageNum);
+		
+		req.setAttribute("num", num);
+		req.setAttribute("page", pageNum);
+		req.setAttribute("board", board);
+	}
+	
+	// 글 수정
+	private void requestBoardUpdate(HttpServletRequest req) {
+		
+		int num = Integer.parseInt(req.getParameter("num"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		BoardDAO dao = BoardDAO.getInstance();
+
+		BoardDTO board = new BoardDTO();
+		board.setNum(num);
+		board.setName(req.getParameter("name"));
+		board.setSubject(req.getParameter("subject"));
+		board.setContent(req.getParameter("content"));
+		
+		dao.updateBoard(board);
+	}
+	
+	// 선택된 글 삭제하기
+	private void requestBoardDelete(HttpServletRequest req) {
+		
+		int num = Integer.parseInt(req.getParameter("num"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		BoardDAO dao = BoardDAO.getInstance();
+		dao.deleteBoard(num);
 		
 	}
 }

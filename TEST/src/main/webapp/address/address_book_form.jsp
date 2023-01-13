@@ -13,7 +13,7 @@
 		<hr>
 		[<a href="./address_book_control.jsp?action=list">주소록 목록으로</a>] <br>
 		<div>
-			<form action="./address_book_control.jsp" name="frmSearch" method="post">
+			<form action="./controller.do" name="frmSearch" method="post">
 				<input type="hidden" name="action" value="search">
 				<select name="part">
 					<option value="name">이름</option>

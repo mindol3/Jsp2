@@ -59,12 +59,12 @@
   		<url-pattern>/mvc/ControllerServlet</url-pattern>
   </servlet-mapping> -->
   
-  <servlet>
+ <!-- <servlet>
   	<servlet-name>BoardController</servlet-name>
   	<servlet-class>mvc.controller.BoardController</servlet-class>
   </servlet>
   <servlet-mapping>
     	<servlet-name>BoardController</servlet-name>
   		<url-pattern>*.do</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>-->
 </web-app>
