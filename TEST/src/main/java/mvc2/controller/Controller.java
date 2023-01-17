@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-@WebServlet("*.do")
+//@WebServlet("*.do")
 public class Controller extends HttpServlet{
 
 	@Override

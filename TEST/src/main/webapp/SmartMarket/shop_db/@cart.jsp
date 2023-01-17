@@ -49,10 +49,8 @@ String cartId = session.getId();%>
 				
 				<%
 					int sum =0;
-					CartDAO cartDAO = new CartDAO();
-					String orderNo = session.getId();
 					
-					ArrayList<CartDTO> cartArrayList = cartDAO.getCartList(orderNo);
+					ArrayList<CartDTO> cartArrayList = (ArrayList<CartDTO>) request.getAttribute("carts");
 					
 					for(CartDTO cart : cartArrayList){
 						int total = cart.getP_unitPrice() * cart.getP_cnt();

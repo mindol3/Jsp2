@@ -4,7 +4,7 @@
 <%@ page import="mvc.model.BoardDTO"%> 
 <%
 	BoardDTO notice = (BoardDTO) request.getAttribute("board");
-	int num = ((Integer) request.getAttribute("num")).intValue();
+	//int num = ((Integer) request.getAttribute("num")).intValue();
 	int nowpage = ((Integer) request.getAttribute("page")).intValue();
 %>
 <html>
@@ -22,9 +22,12 @@
 	</div>
 	
 	<div class="container">
-		<form name="newWrite" 
-		action="./BoardUpdateForm.do?num=<%=notice.getNum()%>&pageNum=<%=nowpage%>" 
+		<form name="formUpdate" 
+		action="./BoardUpdateAction.do" 
 		class="form-horizontal" method="post">
+		<input type="hidden" name="num" value="<%=notice.getNum()%>">
+		<input type="hidden" name="pageNum" value="<%=nowpage%>">
+		
 			<div class="form-group row">
 				<label class="col-sm-2 control-label">성명</label>
 				<div class="col-sm-3">
@@ -50,8 +53,6 @@
 					<c:set var="userId" value="<%=notice.getId() %>" />
 					<c:if test="${sessionId==userId}">
 						<p>
-							<a href="#" class="btn btn-danger" id="del"
-							onclick="deleteList();">삭제</a>
 							<input type="submit"  class="btn btn-success" value="수정">
 					</c:if>
 					<a href="./BoardListAction.do?pageNum=<%=nowpage%>" class="btn btn-primary">목록</a>
@@ -60,16 +61,6 @@
 		</form>
 		<hr>
 	</div>
-	<script type="text/javascript">
-	/*function deleteList(){
-		alert("글을 삭제하시겠습니까?")
-	}*/
-	let deleteList = function() {
-		if (confirm("정말로 삭제 하시겠습니까?")) {
-            document.querySelector("#del").setAttribute("href", "./BoardDeleteAction.do?num=<%=notice.getNum()%>&pageNum=<%=nowpage%>");
-        }
-	}
-	</script>
 	<jsp:include page="../inc/footer.jsp" />
 </body>
 </html>

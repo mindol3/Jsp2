@@ -3,7 +3,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="mvc.model.BoardDTO"%> 
 <%
-	String name = (String) request.getAttribute("name");
+	//String name = (String) request.getAttribute("name");
+	String sessionMemberName = (String) session.getAttribute("sessionName");
 %>
 <html>
 <head>
@@ -44,7 +45,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2 control-label">성명</label>
 				<div class="col-sm-3">
-					<input name="name" type="text" class="form-control" value="<%=name%>"
+					<input name="name" type="text" class="form-control" value="<%=sessionMemberName%>"
 					placeholder="name">
 				</div>
 			</div>

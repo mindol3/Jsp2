@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import mvc.model.BoardDTO;
 import mvc.model.BoardDAO;
 
-//@WebServlet("*.do")
+@WebServlet("*.do")
 public class BoardController extends HttpServlet{
 	static final int LISTCOUNT = 5; // 페이지당 게시물 수
 	
@@ -43,7 +43,7 @@ public class BoardController extends HttpServlet{
 			rd.forward(req, resp);
 		}
 		else if (command.contains("/BoardWriteForm.do")) { // 글 등록 페이지 출력하기
-			requestLoginName(req);
+//			requestLoginName(req);
 			RequestDispatcher rd = req.getRequestDispatcher("../board/writeForm.jsp");
 			rd.forward(req, resp);
 		}
@@ -62,6 +62,11 @@ public class BoardController extends HttpServlet{
 			RequestDispatcher rd = req.getRequestDispatcher("../board/view.jsp");
 			rd.forward(req, resp);
 		}
+		else if (command.contains("/BoardUpdateForm.do")) { // 글 수정 페이지 출력하기
+			requestBoardView(req);
+			RequestDispatcher rd = req.getRequestDispatcher("../board/updateForm.jsp");
+			rd.forward(req, resp);
+		}
 		else if (command.contains("/BoardUpdateAction.do")) { // 글 수정하기
 			requestBoardUpdate(req);
 			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardListAction.do");
@@ -70,11 +75,6 @@ public class BoardController extends HttpServlet{
 		else if (command.contains("/BoardDeleteAction.do")) { // 선택된 글 삭제하기
 			requestBoardDelete(req);
 			RequestDispatcher rd = req.getRequestDispatcher("../board/BoardListAction.do");
-			rd.forward(req, resp);
-		}
-		else if (command.contains("/BoardUpdateForm.do")) { // 글 수정 페이지 출력하기
-			requestLoginName(req);
-			RequestDispatcher rd = req.getRequestDispatcher("../board/updateForm.jsp");
 			rd.forward(req, resp);
 		}
 	}
@@ -118,17 +118,17 @@ public class BoardController extends HttpServlet{
 		
 	}
 	// 인증된 사용자명 가져오기
-	private void requestLoginName(HttpServletRequest req) {
-		
-		String id = req.getParameter("id");
-		
-		BoardDAO dao = BoardDAO.getInstance();
-		
-		String name = dao.getLoginNameById(id);
-		
-		req.setAttribute("name", name);
-				
-	}
+//	private void requestLoginName(HttpServletRequest req) {
+//		
+//		String id = req.getParameter("id");
+//		
+//		BoardDAO dao = BoardDAO.getInstance();
+//		
+//		String name = dao.getLoginNameById(id);
+//		
+//		req.setAttribute("name", name);
+//				
+//	}
 	
 	// 새로운 글 등록하기
 	private void requestBoardWrite(HttpServletRequest req) {
