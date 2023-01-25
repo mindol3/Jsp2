@@ -39,7 +39,7 @@
 	<div class="container">
 	
 		<form name="newWrite" action="./BoardWriteAction.do" 
-		class="form-horizontal" method="post" onsubmit="return checkForm()">
+		class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit="return checkForm()">
 		<input name="id" type="hidden" class="form-control"
 			value="${sessionId}">
 			<div class="form-group row">
@@ -63,7 +63,12 @@
 					placeholder="content"></textarea>
 				</div>
 			</div>
-
+			<div class="form-group row">
+				<label class="col-sm-2 control-label">이미지</label>
+				<div class="col-sm-8">
+					<input type="file" name="productImage" class="form-control">
+				</div>
+			</div>
 			<div class="form-group row">
 				<div class="col-sm-offset-2 col-sm-10">
 					<input type="submit"  class="btn btn-privary" value="등록">

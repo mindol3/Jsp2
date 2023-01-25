@@ -56,6 +56,14 @@
             <%=notice.getContent()%>
         </div>
     </div>
+     <%if(notice.getFilename() != null && !notice.getFilename().isEmpty()) {%>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">이미지</label>
+                <div class="col-sm-8" style="work-break: break-all;">
+                	<img src="/img/<%=notice.getFilename()%>" class="user-gallery-image">
+                </div>
+            </div>
+            <%} %>
     <div class="form-group row">
         <div class="col-sm-offset-2 col-sm-10 ">
             <c:set var="userId" value="<%=notice.getId()%>" />
@@ -101,20 +109,21 @@
             <input type="hidden" name="num" value="<%=notice.getNum() %>">
             <input type="hidden" name="pageNum" value="${page}">
             <div class="form-group row">
-                <label class="col-sm-2 control-Label" >성명</label>
+                <label class="col-sm-2 control-label" >성명</label>
                 <div class="col-sm-3">
                     <input name="name" type="text" class="form-control" value="${sessionMemberName}" placeholder="name">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 control-Label" >내용</label>
+                <label class="col-sm-2 control-label" >내용</label>
                 <div class="col-sm-8" style="word-break: break-all;">
                     <textarea name="content" class="form-control" cols="50" rows="3"></textarea>
                 </div>
             </div>
+           
             <div class="form-group row">
-                <label class="col-sm-2 control-Label"></label>
-                <div class="col-sm-3">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-3">                         
                     <span class="btn btn-primary" name="goRippleSubmit">등록</span>
                 </div>
             </div>
