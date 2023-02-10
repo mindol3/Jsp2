@@ -25,8 +25,7 @@ public class RippleDAO {
     public boolean insertRipple(RippleDTO ripple) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        int flag = 0;
-        
+        int flag =1;
         try {
 
             conn = DBConnection.getConnection();
@@ -44,7 +43,11 @@ public class RippleDAO {
             //            pstmt.setString(6, ripple.getInsertDate());
             pstmt.setString(7, ripple.getIp());
             System.out.println(ripple.getName());
-            flag = pstmt.executeUpdate();
+
+            flag=pstmt.executeUpdate();
+
+            System.out.println(sql);
+            System.out.println(ripple.getRippleId());
 
         } catch (Exception ex) {
             System.out.println("insertBoard() 에러 : " + ex);
@@ -58,7 +61,7 @@ public class RippleDAO {
                 throw new RuntimeException(ex.getMessage());
             }
         }
-        return flag != 0;
+        return flag !=0;
     }
 
     public ArrayList<RippleDTO> getRippleList(String boardName, int boardNum){
@@ -108,16 +111,13 @@ public class RippleDAO {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int flag = 0;
-
+        String sql = "DELETE from `webMarketDB`.`ripple` where rippleId=? ";
         try {
-        	conn = DBConnection.getConnection();
-        	
-        	String sql = "DELETE from `webMarketDB`.`ripple` where rippleId=? ";
-        	
+            conn = DBConnection.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, ripple.getRippleId());
-            flag = pstmt.executeUpdate();
-            
+            flag=pstmt.executeUpdate();
+
             System.out.println(sql);
             System.out.println(ripple.getRippleId());
         } catch (Exception ex) {
@@ -132,6 +132,6 @@ public class RippleDAO {
                 throw new RuntimeException(ex.getMessage());
             }
         }
-		return flag != 0;
+        return flag !=0;
     }
 }
